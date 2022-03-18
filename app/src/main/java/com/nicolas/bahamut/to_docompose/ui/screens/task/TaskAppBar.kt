@@ -19,11 +19,20 @@ import com.nicolas.bahamut.to_docompose.util.Action
 
 @Composable
 fun TaskAppBar(
+    selectedTask: ToDoTask?,
     navigateToListScreen: (Action) -> Unit
 ) {
-    NewTaskAppBar(
-        navigateToListScreen = navigateToListScreen
-    )
+    if (selectedTask == null) {
+        NewTaskAppBar(
+            navigateToListScreen = navigateToListScreen
+        )
+    } else {
+        ExistingTaskAppBar(
+            selectedTask = selectedTask,
+            navigateToListScreen = navigateToListScreen
+        )
+    }
+
 }
 
 @Composable
@@ -155,8 +164,8 @@ fun ExistingTaskAppBarPreview() {
     ExistingTaskAppBar(
         selectedTask = ToDoTask(
             id = 0,
-            title = "Chie Satonaka",
-            description = "Chine Satonaka Hair",
+            title = "Existing task",
+            description = "Existing task",
             priority = Priority.HIGH
         ),
         navigateToListScreen = {}
